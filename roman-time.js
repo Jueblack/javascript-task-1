@@ -6,6 +6,7 @@
  */
 function romanTime(time) {
     // Немного авторского кода и замечательной магии
+    console.log('hui');
     return time;
 }
 
