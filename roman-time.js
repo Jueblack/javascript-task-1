@@ -17,43 +17,67 @@
          IV: 4,
          I: 1
      };
-     let timeNumbers = time.split(':');
-     let hours = Number(timeNumbers[0]);
-     let minutes = Number(timeNumbers[1]);
-     let romanHours = [];
-     let romanMinutes = [];
+
+     let [hours, minutes] = time.split(':');
+
+     hours = Number(hours);
+
+     minutes = Number(minutes);
+
+     const romanHours = [];
+
+     const romanMinutes = [];
+
      let a;
+
      if (hours >= 24 || hours < 0 || typeof hours !== 'number') {
+
          throw new TypeError('Некорректный часовой формат');
+
      }
      if (minutes >= 60 || minutes < 0 || typeof minutes !== 'number') {
+
          throw new TypeError('Некорректный часовой формат');
+
      }
+
      if (hours === 0) {
+
          romanHours.push('N');
+
      }
+
      if (minutes === 0) {
+
          romanMinutes.push('N');
+
      }
+
      while (hours > 0) {
+
          for (a in roman) {
+
              if (roman[a] <= hours) {
+
                  romanHours.push(a);
                  hours -= roman[a];
                  break;
+
              }
          }
      }
 
 
      while (minutes > 0) {
+
          for (a in roman) {
+
              if (roman[a] <= minutes) {
+
                  romanMinutes.push(a);
                  minutes -= roman[a];
                  break;
              }
-
          }
      }
 
