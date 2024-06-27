@@ -1,13 +1,64 @@
-'use strict';
+ /* eslint-disable linebreak-style */
+ 'use strict';
+ // eslint-disable-next-line linebreak-style
 
-/**
- * @param {String} time – время в формате HH:MM (например, 09:05)
- * @returns {String} – время римскими цифрами (IX:V)
- */
-function romanTime(time) {
-    // Немного авторского кода и замечательной магии
-    console.log('hui');
-    return time;
-}
+ /**
+  * @param {String} time – время в формате HH:MM (например, 09:05)
+  * @returns {String} – время римскими цифрами (IX:V)
+  */
+ function romanTime(time) {
 
-module.exports = romanTime;
+     let roman = {
+         L: 50,
+         XL: 40,
+         X: 10,
+         IX: 9,
+         V: 5,
+         IV: 4,
+         I: 1
+     };
+     let timeNumbers = time.split(':');
+     let hours = Number(timeNumbers[0]);
+     let minutes = Number(timeNumbers[1]);
+     let romanHours = [];
+     let romanMinutes = [];
+     let a;
+     if (hours >= 24 || hours < 0 || typeof hours !== 'number') {
+         throw new TypeError('Некорректный часовой формат');
+     }
+     if (minutes >= 60 || minutes < 0 || typeof minutes !== 'number') {
+         throw new TypeError('Некорректный часовой формат');
+     }
+     if (hours === 0) {
+         romanHours.push('N');
+     }
+     if (minutes === 0) {
+         romanMinutes.push('N');
+     }
+     while (hours > 0) {
+         for (a in roman) {
+             if (roman[a] <= hours) {
+                 romanHours.push(a);
+                 hours -= roman[a];
+                 break;
+             }
+         }
+     }
+
+
+     while (minutes > 0) {
+         for (a in roman) {
+             if (roman[a] <= minutes) {
+                 romanMinutes.push(a);
+                 minutes -= roman[a];
+                 break;
+             }
+
+         }
+     }
+
+
+     return romanHours.join('') + ':' + romanMinutes.join('');
+ }
+
+ module.exports = romanTime;
