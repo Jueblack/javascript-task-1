@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 'use strict';
-// eslint-disable-next-line linebreak-style
 
 /**
  * @param {String} time – время в формате HH:MM (например, 09:05)
@@ -16,14 +15,28 @@ const roman = {
     I: 1
 };
 
+
+function converter(arabicNumb, arrOfNumbs) {
+    while (arabicNumb > 0) {
+        for (let a in roman) {
+            if (roman[a] <= arabicNumb) {
+                arrOfNumbs.push(a);
+                arabicNumb -= roman[a];
+                break;
+
+            }
+        }
+    }
+}
+
 function romanTime(time) {
     let [hours, minutes] = time.split(':');
 
-    hours = Number(hours);
-    minutes = Number(minutes);
-
     const romanHours = [];
     const romanMinutes = [];
+
+    hours = Number(hours);
+    minutes = Number(minutes);
 
     if (hours >= 24 || hours < 0 || typeof hours !== 'number') {
         throw new TypeError('Некорректный часовой формат');
@@ -41,26 +54,8 @@ function romanTime(time) {
         romanMinutes.push('N');
     }
 
-    while (hours > 0) {
-        for (let a in roman) {
-            if (roman[a] <= hours) {
-                romanHours.push(a);
-                hours -= roman[a];
-                break;
-
-            }
-        }
-    }
-
-    while (minutes > 0) {
-        for (let a in roman) {
-            if (roman[a] <= minutes) {
-                romanMinutes.push(a);
-                minutes -= roman[a];
-                break;
-            }
-        }
-    }
+    converter(hours, romanHours);
+    converter(minutes, romanMinutes);
 
     return romanHours.join('') + ':' + romanMinutes.join('');
 }
