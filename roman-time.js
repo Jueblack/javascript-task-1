@@ -28,6 +28,9 @@ function converter(arabicNumb, arrOfNumbs) {
             }
         }
     }
+    if (arrayClone.length === 0) {
+        arrayClone.push('N');
+    }
 
     return arrayClone;
 }
