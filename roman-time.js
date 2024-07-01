@@ -17,17 +17,19 @@ const roman = {
 
 
 function converter(arabicNumb, arrOfNumbs) {
-    let cloneRomanObj = roman;
-    let cloneArray = arrOfNumbs;
+    const arrayClone = [...arrOfNumbs];
+    const romanClone = Object.assign({}, roman);
     while (arabicNumb > 0) {
-        for (let key in roman) {
-            if (cloneRomanObj[key] <= arabicNumb) {
-                cloneArray.push(key);
-                arabicNumb -= cloneRomanObj[key];
+        for (let key in romanClone) {
+            if (romanClone[key] <= arabicNumb) {
+                arrayClone.push(key);
+                arabicNumb -= romanClone[key];
                 break;
             }
         }
     }
+
+    return arrayClone;
 }
 
 function hourChecker(checkHours) {
@@ -63,10 +65,7 @@ function romanTime(time) {
         romanMinutes.push('N');
     }
 
-    converter(hours, romanHours);
-    converter(minutes, romanMinutes);
-
-    return romanHours.join('') + ':' + romanMinutes.join('');
+    return converter(hours, romanHours).join('') + ':' + converter(minutes, romanMinutes).join('');
 }
 
 module.exports = romanTime;
