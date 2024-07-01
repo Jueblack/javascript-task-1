@@ -17,15 +17,29 @@ const roman = {
 
 
 function converter(arabicNumb, arrOfNumbs) {
+    let cloneRomanObj = roman;
+    let cloneArray = arrOfNumbs;
     while (arabicNumb > 0) {
-        for (let a in roman) {
-            if (roman[a] <= arabicNumb) {
-                arrOfNumbs.push(a);
-                arabicNumb -= roman[a];
+        for (let key in roman) {
+            if (cloneRomanObj[key] <= arabicNumb) {
+                cloneArray.push(key);
+                arabicNumb -= cloneRomanObj[key];
                 break;
-
             }
         }
+    }
+}
+
+function hourChecker(checkHours) {
+    while (checkHours >= 24 || checkHours < 0 || typeof checkHours !== 'number') {
+        throw new TypeError('Некорректный часовой формат');
+    }
+}
+
+function minChecker(checkMins) {
+    while (
+        checkMins >= 60 || checkMins < 0 || typeof checkMins !== 'number') {
+        throw new TypeError('Некорректный часовой формат');
     }
 }
 
@@ -38,13 +52,8 @@ function romanTime(time) {
     hours = Number(hours);
     minutes = Number(minutes);
 
-    if (hours >= 24 || hours < 0 || typeof hours !== 'number') {
-        throw new TypeError('Некорректный часовой формат');
-    }
-
-    if (minutes >= 60 || minutes < 0 || typeof minutes !== 'number') {
-        throw new TypeError('Некорректный часовой формат');
-    }
+    hourChecker(hours);
+    minChecker(minutes);
 
     if (hours === 0) {
         romanHours.push('N');
