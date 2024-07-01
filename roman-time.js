@@ -60,14 +60,6 @@ function romanTime(time) {
     hourChecker(hours);
     minChecker(minutes);
 
-    if (hours === 0) {
-        romanHours.push('N');
-    }
-
-    if (minutes === 0) {
-        romanMinutes.push('N');
-    }
-
     return converter(hours, romanHours).join('') + ':' + converter(minutes, romanMinutes).join('');
 }
 
